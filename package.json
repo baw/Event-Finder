@@ -2,5 +2,8 @@
   "name": "move-events",
   "version": "0.0.0",
   "description": "Lists the 10 event links from the given link",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^0.17.0"
+  }
 }
