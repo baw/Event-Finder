@@ -1,3 +1,5 @@
+var url = require("url");
+
 var comp = require("../lib/comparisons.js");
 
 describe("comparsions: ", function () {
@@ -64,5 +66,15 @@ describe("comparsions: ", function () {
     
     it("inlcudes 'events'", function () {
       expect(comp.isAnEventIndex("http://events.stanford.edu")).toBe(true);
+    });
+  });
+  
+  describe("isAnEventLink", function () {
+    it("includes 'event' and numbers", function () {
+      expect(comp.isAnEventLink("http://www.sfmoma.org/exhib_events/exhibitions/513")).toBe(true);
+    });
+    
+    it("doesn't include 'event' and numbers", function () {
+      expect(comp.isAnEventLink("http://google.com")).toBe(false);
     });
   });
