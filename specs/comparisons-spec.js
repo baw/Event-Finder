@@ -30,4 +30,29 @@ describe("comparsions: ", function () {
       expect(comp.responsedWithRedirect(res501)).toBe(false);
     });
   });
-});
+  
+  describe("isNotSameLink", function () {
+    var link1;
+    var link2;
+    
+    var parsedLink1;
+    var parsedLink2;
+    
+    beforeEach(function () {
+      link1 = "http://google.com";
+      link2 = "http://gmail.com";
+      
+      parsedLink1 = url.parse(link1);
+      parsedLink2 = url.parse(link2);
+    });
+    
+    it("should return true for different links", function () {
+      expect(comp.isNotSameLink(link1, parsedLink2)).toBe(false);
+      expect(comp.isNotSameLink(link2, parsedLink1)).toBe(false);
+    });
+    
+    it("should return false for the same links", function () {
+      expect(comp.isNotSameLink(link1, parsedLink1)).toBe(false);
+      expect(comp.isNotSameLink(link2, parsedLink2)).toBe(false);
+    });
+  });
