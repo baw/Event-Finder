@@ -4,6 +4,9 @@ var url = require("url");
 //External Libraries
 var cheerio = require("cheerio");
 
+//Project Libraries
+var comp = require("./lib/comparisons.js");
+
 //Constants
 var NUMBER_OF_EVENT_LINKS_TO_SHOW = 10;
 
@@ -58,3 +61,39 @@ function loadPage(link, num, cb) {
   });
 }
 
+function findEvents(num, $, link) {
+  var links = $("a");
+  var hostCheck = new RegExp("^http?:\\/\\/" + link.hostname);
+  
+  var eventIndex = [];
+  links = links.filter(function (index, el) {
+    if (this.attribs.href === undefined) {
+      return false;
+    }
+    
+    var href = this.attribs.href.replace(/#.*/, "");
+    
+    if (comp.isSameHost(href, hostCheck)) {
+      if ((comp.isAnEventLink(href) && comp.isNotSameLink(href, link))) {
+        return true;
+      } else if (comp.isAnEventIndex(href)) {
+        eventIndex.push(href);
+      }
+    }
+  });
+  
+  if (links.length < num  && eventIndex.length > 0) {
+    loadPage(eventIndex[0], num - links.length, findEvents);
+  }
+  
+  console.log("Events:");
+  for (var i = 0; i < num && i < links.length; i++) {
+    var href = links.get(i).attribs.href;
+    
+    if (href.charAt(0) === "/") {
+      console.log(i + " " + link.protocol + "//" + link.hostname + href);
+    } else {
+      console.log(i + " " + href);
+    }
+  }
+}
