@@ -56,3 +56,13 @@ describe("comparsions: ", function () {
       expect(comp.isNotSameLink(link2, parsedLink2)).toBe(false);
     });
   });
+  
+  describe("isAnEventIndex", function () {
+    it("doesn't include 'events'", function () {
+      expect(comp.isAnEventIndex("http://google.com")).toBe(false);
+    });
+    
+    it("inlcudes 'events'", function () {
+      expect(comp.isAnEventIndex("http://events.stanford.edu")).toBe(true);
+    });
+  });
