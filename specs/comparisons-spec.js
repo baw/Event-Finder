@@ -78,3 +78,18 @@ describe("comparsions: ", function () {
       expect(comp.isAnEventLink("http://google.com")).toBe(false);
     });
   });
+  
+  describe("isSameHost", function () {
+    it("is same host", function () {
+      var hostCheck = new RegExp("^http?:\\/\\/" + "google.com");
+      
+      expect(comp.isSameHost("http://google.com/", hostCheck)).toBe(true);
+    });
+    
+    it("is a different host", function () {
+      var hostCheck = new RegExp("^http?:\\/\\/" + "gmail.com");
+      
+      expect(comp.isSameHost("http://google.com/", hostCheck)).toBe(false);
+    });
+  });
+});
