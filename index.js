@@ -19,6 +19,7 @@ if (require.main === module) {
     var link = process.stdin.read();
     
     if (link !== null) {
+      console.log("Loading Events...");
       loadPage(link, NUMBER_OF_EVENT_LINKS_TO_SHOW, findEvents);
       
       process.stdin.end();
@@ -86,14 +87,13 @@ function findEvents(num, $, link) {
     loadPage(eventIndex[0], num - links.length, findEvents);
   }
   
-  console.log("Events:");
   for (var i = 0; i < num && i < links.length; i++) {
     var href = links.get(i).attribs.href;
     
     if (href.charAt(0) === "/") {
-      console.log(i + " " + link.protocol + "//" + link.hostname + href);
+      console.log(link.protocol + "//" + link.hostname + href);
     } else {
-      console.log(i + " " + href);
+      console.log(href);
     }
   }
 }
