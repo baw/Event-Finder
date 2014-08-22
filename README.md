@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/imamathwiz/Event-Finder.svg?branch=master)](https://travis-ci.org/imamathwiz/Event-Finder)
 #Event Finder
 
 This app returns 10 event links based off the event link you provide.
