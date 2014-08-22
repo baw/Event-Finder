@@ -68,12 +68,16 @@ function findEvents(num, $, link) {
   
   var eventIndex = [];
   links = links.filter(function (index, el) {
-    if (this.attribs.href === undefined) {
+    var $this = $(el);
+    if ($this.attr("href") === undefined) {
       return false;
     }
     
-    var href = this.attribs.href.replace(/#.*/, "");
+    if ($this.attr("href").charAt(0) === "/") {
+      $this.attr("href", link.protocol + "//" + link.hostname + this.attribs.href);
+    }
     
+    var href = $this.attr("href").replace(/#.*/, "");
     if (comp.isSameHost(href, hostCheck)) {
       if ((comp.isAnEventLink(href) && comp.isNotSameLink(href, link))) {
         return true;
@@ -88,12 +92,6 @@ function findEvents(num, $, link) {
   }
   
   for (var i = 0; i < num && i < links.length; i++) {
-    var href = links.get(i).attribs.href;
-    
-    if (href.charAt(0) === "/") {
-      console.log(link.protocol + "//" + link.hostname + href);
-    } else {
-      console.log(href);
-    }
+    console.log(links.get(i).attribs.href);
   }
 }
