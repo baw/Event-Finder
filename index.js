@@ -64,7 +64,7 @@ function loadPage(link, num, cb) {
 
 function findEvents(num, $, link) {
   var links = $("a");
-  var hostCheck = new RegExp("^http?:\\/\\/" + link.hostname);
+  var hostCheck = new RegExp("^http:\\/\\/" + link.hostname);
   
   var eventIndex = [];
   links = links.filter(function (index, el) {
